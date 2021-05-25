@@ -6,7 +6,16 @@ const FuncoesJavascriptHtml = function(){
     this.tags_fechamento_simples = [
         "input",
         "br"
-    ]
+    ];
+    /*nomes propriedades que podem vir fora de props (params.[prop]) e serem elegiveis a propriedade html*/
+    this.props_elegiveis = [        
+        "class",
+        "id",
+        "placeholder",
+        "style",
+        "type",
+        "value",
+    ];    
 };
 
 /**
@@ -74,17 +83,29 @@ FuncoesJavascriptHtml.prototype.criar_elemento = function(params) {
         params.retornar_como = params.retornar_como || 'string';              
         if (params.retornar_como === "string") {
             retorno += '<' + (params.tag || 'div');
+            let arr_props = [];
+
+            /*keys que vem fora de params.props mas sao elegiveis a propriedades html*/
+            let keys = Object.keys(params);
+            for(let i in keys) {
+                if (window.jshtml.props_elegiveis.indexOf(keys[i]) > -1) {
+                    arr_props.push(keys[i] + '="' + params[keys[i]] + '"');
+                }
+            };
+
             if (window.jshtml.typeof(params.props) === "array" && params.props.length) {
-                let arr_props = [];
+
+                /*propriedades dentro de params.props */
                 for(let i in params.props) {
                     if (typeof params.props[i].value !== "undefined") {
                         arr_props.push(params.props[i].prop + '="' + params.props[i].value + '"');
                     } else {
                         arr_props.push(params.props[i].prop);
                     }
-                }
-                retorno += ' ' + arr_props.join(' ');
-                
+                };                
+            }
+            if (arr_props.length > 0) {
+                retorno += ' ' + arr_props.join(' ');                
             }
             if (window.jshtml.tags_fechamento_simples.indexOf(params.tag) > -1) {
                 retorno += '/>';
@@ -100,14 +121,26 @@ FuncoesJavascriptHtml.prototype.criar_elemento = function(params) {
             }                 
         } else {
             retorno = document.createElement(params.tag);
+
+            /*keys que vem fora de params.props mas sao elegiveis a propriedades html*/
+            let keys = Object.keys(params);
+            for(let i in keys) {
+                if (window.jshtml.props_elegiveis.indexOf(keys[i]) > -1) {
+                    retorno.setAttribute(keys[i], params[keys[i]]);
+                }
+            };
+            
             if (window.jshtml.typeof(params.props) === "array" && params.props.length) {
+
+                /*propriedades dentro de params.props */
                 for(let i in params.props) {
                     if (typeof params.props[i].value !== "undefined") {
                         retorno.setAttribute(params.props[i].prop, params.props[i].value);
                     } else {
                         retorno.setAttribute(params.props[i].prop);
                     }
-                }
+                };
+
             }
             if (typeof params.parent === "object") {
                 params.parent.insertAdjacentElement(params.posicao || window.jshtml.posicao_inclusao,retorno);                        
@@ -137,5 +170,4 @@ window.jshtml.criar_elemento({
     value:"classe_a"
   }]
 });
-teste de comentarios
 */
