@@ -44,6 +44,13 @@ FuncoesJavascriptHtml.prototype.obter_ultimo_adicionado = function(params) {
         return null;
     }
 }
+
+/**
+ * Cria um elemento html e retorna-o como texto ou DomObject, adicionalmente ja inserindo-o no html se passado 
+ * params.parent nao nulo.
+ * @param {object} params - os parametros de criacao
+ * @returns 
+ */
 FuncoesJavascriptHtml.prototype.criar_elemento = function(params) {
     try {
         let retorno = '';
