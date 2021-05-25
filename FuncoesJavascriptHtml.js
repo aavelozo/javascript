@@ -25,7 +25,7 @@ FuncoesJavascriptHtml.prototype.typeof = function(value){
 
 /**
  * Obtem o ultimo elemento html incluido conforme params.posicao
- * @param {object} params - o mesmo params da criacao do elemento ou que contenha pelo menos seu .parent
+ * @param {json object} params - o mesmo params da criacao do elemento ou que contenha pelo menos seu .parent
  * @returns {object} - o elemento encontrado
  */
 FuncoesJavascriptHtml.prototype.obter_ultimo_adicionado = function(params) {
@@ -61,7 +61,7 @@ FuncoesJavascriptHtml.prototype.obter_ultimo_adicionado = function(params) {
 /**
  * Cria um elemento html e retorna-o como texto ou DomObject, adicionalmente ja inserindo-o no html se passado 
  * params.parent nao nulo.
- * @param {object} params - os parametros de criacao
+ * @param {json object | string} params - os parametros de criacao (json) ou a tag html(string)
  * @returns {object | string} - o elemento criado ou seu texto html (caso params.retornar_como = texto)
  */
 FuncoesJavascriptHtml.prototype.criar_elemento = function(params) {
