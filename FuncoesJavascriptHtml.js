@@ -8,6 +8,13 @@ const FuncoesJavascriptHtml = function(){
         "br"
     ]
 };
+
+/**
+ * obtem o typeof, diferentemente do typeof normal, retorna a palavra "array" em vez de "object" caso seja uma 
+ * instancia do tipo array ou nodelist.
+ * @param {variant} value - o valor a ser obtido o tipo
+ * @returns {string} - o typeof encontrado
+ */
 FuncoesJavascriptHtml.prototype.typeof = function(value){
     let r = typeof value;
     if (Array.isArray(value) || value instanceof NodeList || value instanceof Array) {
@@ -15,6 +22,12 @@ FuncoesJavascriptHtml.prototype.typeof = function(value){
     }
     return r;
 }
+
+/**
+ * Obtem o ultimo elemento html incluido conforme params.posicao
+ * @param {object} params - o mesmo params da criacao do elemento ou que contenha pelo menos seu .parent
+ * @returns {object} - o elemento encontrado
+ */
 FuncoesJavascriptHtml.prototype.obter_ultimo_adicionado = function(params) {
     try {
         let retorno = null;
@@ -49,7 +62,7 @@ FuncoesJavascriptHtml.prototype.obter_ultimo_adicionado = function(params) {
  * Cria um elemento html e retorna-o como texto ou DomObject, adicionalmente ja inserindo-o no html se passado 
  * params.parent nao nulo.
  * @param {object} params - os parametros de criacao
- * @returns 
+ * @returns {object | string} - o elemento criado ou seu texto html (caso params.retornar_como = texto)
  */
 FuncoesJavascriptHtml.prototype.criar_elemento = function(params) {
     try {
@@ -107,10 +120,14 @@ FuncoesJavascriptHtml.prototype.criar_elemento = function(params) {
         return null;
     }
 }
+
+/*Instancia a classe em window.jshtml, se preferir outra designacao, altere, mas atencao que a própria classe
+pode se referenciar por esse endereço. Então se alterar aqui, procure essa referencia no codigo e altere também.
+Se possível, deixe como está.*/
 window.jshtml = new FuncoesJavascriptHtml();
 
 /*
-uso:
+uso comum:
 window.jshtml.criar_elemento({
   tag:"div",
   parent:node,
