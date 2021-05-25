@@ -137,4 +137,5 @@ window.jshtml.criar_elemento({
     value:"classe_a"
   }]
 });
+teste de comentarios
 */
